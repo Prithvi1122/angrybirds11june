@@ -8,8 +8,12 @@ var box1, pig1;
 var backgroundImg,platform;
 var bird, slingShot;
 var gameState="onSling";
+//var BackgroundImg=loadImage("sprites/bg2.jpg")
+var bg="sprites/bg.png"
+var score=0;
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+    getBackgroundImage();
+    
 }
 
 function setup(){
@@ -44,18 +48,24 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImg);
+    if(backgroundImg){
+        background(backgroundImg);
+    }
+  
     Engine.update(engine);
     strokeWeight(4);
     box1.display();
     box2.display();
     ground.display();
     pig1.display();
+    pig1.score();
+    
     log1.display();
 
     box3.display();
     box4.display();
     pig3.display();
+    pig3.score();
     log3.display();
 
     box5.display();
@@ -72,12 +82,12 @@ function draw(){
     var booleanList=[true,false,false,true]
     
     var randomList=[true,4,"Prithvi",-16.65]
-    console.log(randomList)
+    //console.log(randomList)
     randomList.push(10,true)
-    console.log(randomList)
+    //console.log(randomList)
     randomList.pop()
     randomList.pop()
-    console.log(randomList)
+    //console.log(randomList)
     //randomList=null
     //console.log(randomList[1]*randomList[3])
     //console.log(booleanList)
@@ -88,8 +98,27 @@ function draw(){
     var List=[[5,3,10,-20],[true,false],["prithvi",]]
 
     //console.log(List[0].length)
+    
+    text(score,1000,100)
+    
+    
 }
-
+async function getBackgroundImage(){
+    var response=await fetch("http://worldtimeapi.org/api/timezone/America/Chicago")
+    //console.log(await response.json());
+    var jsonResponse =await response.json()
+    var dt=jsonResponse.datetime
+    var hour=dt.slice(11,13)
+    console.log(hour);
+    //console.log(dt);
+    if(hour>=6 && hour<=19){
+        bg="sprites/bg.png"
+    }else{
+        bg="sprites/bg2.jpg"
+    }
+    backgroundImg=loadImage(bg)
+    console.log(bg)
+}
 function mouseDragged(){
     if(gameState!="launched"){
         Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
