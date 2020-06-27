@@ -40,7 +40,7 @@ function setup(){
     log4 = new Log(760,120,150, PI/7);
     log5 = new Log(870,120,150, -PI/7);
 
-    bird = new Bird(100,70);
+    bird = new Bird(200,70);
 
     //log6 = new Log(230,180,80, PI/2);
     slingshot = new SlingShot(bird.body,{x:200, y:70});
@@ -51,7 +51,9 @@ function draw(){
     if(backgroundImg){
         background(backgroundImg);
     }
-  
+    /*if(bird.body.position.x>1200 || bird.body.position.y>400){
+        bird.body.speed=0;
+    }*/  //not possible becouse it is read-only property
     Engine.update(engine);
     strokeWeight(4);
     box1.display();
@@ -100,7 +102,7 @@ function draw(){
     //console.log(List[0].length)
     
     text(score,1000,100)
-    
+    console.log(bird.body.speed)
     
 }
 async function getBackgroundImage(){
@@ -120,18 +122,22 @@ async function getBackgroundImage(){
     console.log(bg)
 }
 function mouseDragged(){
-    if(gameState!="launched"){
+    //if(gameState!="launched"){
         Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
-    }
+    //}
 }
 
 
 function mouseReleased(){
     slingshot.fly();
-    gameState="launched";
+    //gameState="launched";
 }
 function keyPressed(){
-    if(keyCode===32){
-        //slingshot.attach(bird.body)
+    
+    if(keyCode===32 && bird.body.speed<1){
+        bird.trajectory=[]
+        Matter.Body.setPosition(bird.body,{x:200 , y:70})
+        slingshot.attach(bird.body)
+
     }
 }
