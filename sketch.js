@@ -51,6 +51,7 @@ function draw(){
     if(backgroundImg){
         background(backgroundImg);
     }
+    console.log(backgroundImg)
     /*if(bird.body.position.x>1200 || bird.body.position.y>400){
         bird.body.speed=0;
     }*/  //not possible becouse it is read-only property
@@ -79,27 +80,7 @@ function draw(){
     //log6.display();
     slingshot.display();    
 
-    var numberList;
-    var stringList=["Prem","Nithya","Prithvi"]
-    var booleanList=[true,false,false,true]
     
-    var randomList=[true,4,"Prithvi",-16.65]
-    //console.log(randomList)
-    randomList.push(10,true)
-    //console.log(randomList)
-    randomList.pop()
-    randomList.pop()
-    //console.log(randomList)
-    //randomList=null
-    //console.log(randomList[1]*randomList[3])
-    //console.log(booleanList)
-    //console.log(stringList)
-    //console.log(numberList)
-    numberList=[2,5,10,15.53,-20]
-    //console.log(numberList)
-    var List=[[5,3,10,-20],[true,false],["prithvi",]]
-
-    //console.log(List[0].length)
     
     text(score,1000,100)
     console.log(bird.body.speed)
